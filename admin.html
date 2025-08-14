@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Kecamatan Ngluyu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .login-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .admin-content {
+            display: none;
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .data-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-processed {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .photo-thumbnail {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 15px;
+            }
+            
+            .data-table {
+                font-size: 14px;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 8px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Login Section -->
+        <div class="login-section" id="loginSection">
+            <h1><i class="fas fa-shield-alt"></i> Admin Panel</h1>
+            <p>Masuk ke panel admin untuk melihat data</p>
+            <form class="login-form" id="loginForm">
+                <input type="password" id="adminPassword" placeholder="Masukkan password admin" required>
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Masuk
+                </button>
+            </form>
+        </div>
+
+        <!-- Admin Content -->
+        <div class="admin-content" id="adminContent">
+            <div class="admin-header">
+                <div>
+                    <h1><i class="fas fa-shield-alt"></i> Admin Panel - Kecamatan Ngluyu</h1>
+                    <p>Kelola dan lihat semua data yang masuk</p>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalLaporan">0</div>
+                    <div class="stat-label">Total Laporan</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPengaduan">0</div>
+                    <div class="stat-label">Total Pengaduan</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalFoto">0</div>
+                    <div class="stat-label">Total Foto</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalAkun">0</div>
+                    <div class="stat-label">Total Akun</div>
+                </div>
+            </div>
+
+            <!-- Laporan Section -->
+            <div class="data-section">
+                <div class="section-title">
+                    <i class="fas fa-file-alt"></i>
+                    Data Laporan
+                </div>
+                <div id="laporanData">
+                    <div class="no-data">Memuat data laporan...</div>
+                </div>
+            </div>
+
+            <!-- Pengaduan Section -->
+            <div class="data-section">
+                <div class="section-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Data Pengaduan
+                </div>
+                <div id="pengaduanData">
+                    <div class="no-data">Memuat data pengaduan...</div>
+                </div>
+            </div>
+
+            <!-- Foto Section -->
+            <div class="data-section">
+                <div class="section-title">
+                    <i class="fas fa-images"></i>
+                    Data Foto
+                </div>
+                <div id="fotoData">
+                    <div class="no-data">Memuat data foto...</div>
+                </div>
+            </div>
+
+            <!-- Akun Section -->
+            <div class="data-section">
+                <div class="section-title">
+                    <i class="fas fa-users"></i>
+                    Data Akun
+                </div>
+                <div id="akunData">
+                    <div class="no-data">Memuat data akun...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo Modal -->
+    <div id="photoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePhotoModal()">&times;</span>
+            <h2>Detail Foto</h2>
+            <div id="modalPhotoContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = 'Admin123';
+        
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('adminPassword').value;
+            
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                loadAllData();
+            } else {
+                alert('Password salah! Password admin: Admin123');
+            }
+        });
+
+        // Logout functionality
+        function logout() {
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('adminContent').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+        }
+
+        // Load all data
+        async function loadAllData() {
+            await Promise.all([
+                loadLaporanData(),
+                loadPengaduanData(),
+                loadFotoData(),
+                loadAkunData()
+            ]);
+            updateStatistics();
+        }
+
+        // Load Laporan Data
+        async function loadLaporanData() {
+            try {
+                const response = await fetch('data/laporan_data.php?action=get');
+                const data = await response.json();
+                
+                if (data.success && data.data.length > 0) {
+                    const table = createLaporanTable(data.data);
+                    document.getElementById('laporanData').innerHTML = table;
+                } else {
+                    document.getElementById('laporanData').innerHTML = '<div class="no-data">Belum ada data laporan</div>';
+                }
+            } catch (error) {
+                document.getElementById('laporanData').innerHTML = '<div class="no-data">Error: ' + error.message + '</div>';
+            }
+        }
+
+        // Load Pengaduan Data
+        async function loadPengaduanData() {
+            try {
+                const response = await fetch('data/pengaduan_data.php?action=get');
+                const data = await response.json();
+                
+                if (data.success && data.data.length > 0) {
+                    const table = createPengaduanTable(data.data);
+                    document.getElementById('pengaduanData').innerHTML = table;
+                } else {
+                    document.getElementById('pengaduanData').innerHTML = '<div class="no-data">Belum ada data pengaduan</div>';
+                }
+            } catch (error) {
+                document.getElementById('pengaduanData').innerHTML = '<div class="no-data">Error: ' + error.message + '</div>';
+            }
+        }
+
+        // Load Foto Data
+        async function loadFotoData() {
+            try {
+                const response = await fetch('data/foto_data.php?action=get');
+                const data = await response.json();
+                
+                if (data.success && data.data.length > 0) {
+                    const table = createFotoTable(data.data);
+                    document.getElementById('fotoData').innerHTML = table;
+                } else {
+                    document.getElementById('fotoData').innerHTML = '<div class="no-data">Belum ada data foto</div>';
+                }
+            } catch (error) {
+                document.getElementById('fotoData').innerHTML = '<div class="no-data">Error: ' + error.message + '</div>';
+            }
+        }
+
+        // Load Akun Data
+        async function loadAkunData() {
+            try {
+                const response = await fetch('data/registration_data.php?action=get');
+                const data = await response.json();
+                
+                if (data.success && data.data.length > 0) {
+                    const table = createAkunTable(data.data);
+                    document.getElementById('akunData').innerHTML = table;
+                } else {
+                    document.getElementById('akunData').innerHTML = '<div class="no-data">Belum ada data akun</div>';
+                }
+            } catch (error) {
+                document.getElementById('akunData').innerHTML = '<div class="no-data">Error: ' + error.message + '</div>';
+            }
+        }
+
+        // Create Laporan Table
+        function createLaporanTable(data) {
+            let table = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>NIK</th>
+                            <th>Jenis Laporan</th>
+                            <th>Deskripsi</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            data.forEach((item, index) => {
+                table += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.nama || '-'}</td>
+                        <td>${item.nik || '-'}</td>
+                        <td>${item.jenis_laporan || '-'}</td>
+                        <td>${item.deskripsi || '-'}</td>
+                        <td>${item.tanggal || '-'}</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                    </tr>
+                `;
+            });
+            
+            table += '</tbody></table>';
+            return table;
+        }
+
+        // Create Pengaduan Table
+        function createPengaduanTable(data) {
+            let table = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>NIK</th>
+                            <th>Jenis Pengaduan</th>
+                            <th>Deskripsi</th>
+                            <th>Lokasi</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            data.forEach((item, index) => {
+                table += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.nama || '-'}</td>
+                        <td>${item.nik || '-'}</td>
+                        <td>${item.jenis_pengaduan || '-'}</td>
+                        <td>${item.deskripsi || '-'}</td>
+                        <td>${item.lokasi || '-'}</td>
+                        <td>${item.tanggal || '-'}</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                    </tr>
+                `;
+            });
+            
+            table += '</tbody></table>';
+            return table;
+        }
+
+        // Create Foto Table
+        function createFotoTable(data) {
+            let table = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>NIK</th>
+                            <th>Judul</th>
+                            <th>Deskripsi</th>
+                            <th>Foto</th>
+                            <th>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            data.forEach((item, index) => {
+                const photoPath = item.foto_path || 'uploads/default.jpg';
+                table += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.nama || '-'}</td>
+                        <td>${item.nik || '-'}</td>
+                        <td>${item.judul || '-'}</td>
+                        <td>${item.deskripsi || '-'}</td>
+                        <td>
+                            <img src="${photoPath}" alt="Foto" class="photo-thumbnail" 
+                                 onclick="showPhotoModal('${photoPath}', '${item.judul || 'Foto'}')">
+                        </td>
+                        <td>${item.tanggal || '-'}</td>
+                    </tr>
+                `;
+            });
+            
+            table += '</tbody></table>';
+            return table;
+        }
+
+        // Create Akun Table
+        function createAkunTable(data) {
+            let table = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Lengkap</th>
+                            <th>NIK</th>
+                            <th>Email</th>
+                            <th>No. Telepon</th>
+                            <th>Alamat</th>
+                            <th>Tanggal Daftar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            data.forEach((item, index) => {
+                table += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.nama_lengkap || '-'}</td>
+                        <td>${item.nik || '-'}</td>
+                        <td>${item.email || '-'}</td>
+                        <td>${item.no_telepon || '-'}</td>
+                        <td>${item.alamat || '-'}</td>
+                        <td>${item.tanggal_daftar || '-'}</td>
+                    </tr>
+                `;
+            });
+            
+            table += '</tbody></table>';
+            return table;
+        }
+
+        // Update Statistics
+        function updateStatistics() {
+            const laporanCount = document.querySelector('#laporanData table tbody tr').length || 0;
+            const pengaduanCount = document.querySelector('#pengaduanData table tbody tr').length || 0;
+            const fotoCount = document.querySelector('#fotoData table tbody tr').length || 0;
+            const akunCount = document.querySelector('#akunData table tbody tr').length || 0;
+
+            document.getElementById('totalLaporan').textContent = laporanCount;
+            document.getElementById('totalPengaduan').textContent = pengaduanCount;
+            document.getElementById('totalFoto').textContent = fotoCount;
+            document.getElementById('totalAkun').textContent = akunCount;
+        }
+
+        // Show Photo Modal
+        function showPhotoModal(photoPath, title) {
+            const modal = document.getElementById('photoModal');
+            const content = document.getElementById('modalPhotoContent');
+            
+            content.innerHTML = `
+                <h3>${title}</h3>
+                <img src="${photoPath}" alt="${title}" style="width: 100%; max-width: 500px; border-radius: 10px;">
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        // Close Photo Modal
+        function closePhotoModal() {
+            document.getElementById('photoModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('photoModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

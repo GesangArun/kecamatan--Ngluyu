@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kecamatan Ngluyu - Linktree</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Aplikasi Layanan Kecamatan Ngluyu - Linktree Digital">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Kecamatan Ngluyu">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">K</div>
+            <span class="logo-text">ecamatan Ngluyu</span>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Laporan Section -->
+        <div class="link-card">
+            <div class="card-illustration laporan-bg">
+                <div class="illustration-content">
+                    <i class="fas fa-file-alt"></i>
+                    <div class="text-lines">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-text">
+                <a href="laporan.html" class="link-button">LAPORAN</a>
+            </div>
+        </div>
+
+        <!-- Pengaduan Section -->
+        <div class="link-card">
+            <div class="card-illustration pengaduan-bg">
+                <div class="illustration-content">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div class="alert-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-text">
+                <a href="pengaduan.html" class="link-button">PENGADUAN</a>
+            </div>
+        </div>
+
+        <!-- Foto Section -->
+        <div class="link-card">
+            <div class="card-illustration foto-bg">
+                <div class="illustration-content">
+                    <i class="fas fa-camera"></i>
+                    <div class="photo-frame">
+                        <div class="photo-placeholder"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-text">
+                <a href="foto.html" class="link-button">FOTO</a>
+            </div>
+        </div>
+
+        <!-- Daftar Akun Section -->
+        <div class="link-card">
+            <div class="card-illustration daftar-bg">
+                <div class="illustration-content">
+                    <div class="document">
+                        <div class="doc-text">DAFTAR AKUN</div>
+                        <div class="doc-lines">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                    <div class="pencil">
+                        <div class="pencil-body"></div>
+                        <div class="pencil-tip"></div>
+                    </div>
+                    <div class="profile-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-text">
+                <a href="pendaftaran.html" class="link-button">DAFTAR AKUN</a>
+            </div>
+        </div>
+
+        <!-- Admin Panel Section -->
+        <div class="link-card">
+            <div class="card-illustration admin-bg">
+                <div class="illustration-content">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="admin-shield">
+                        <div class="shield-body"></div>
+                        <div class="shield-star"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-text">
+                <a href="admin.html" class="link-button">ADMIN PANEL</a>
+            </div>
+        </div>
+
+        <!-- Jenis Layanan Section -->
+        <div class="link-card">
+            <div class="card-illustration layanan-bg">
+                <div class="illustration-content">
+                    <i class="fas fa-list-alt"></i>
+                    <div class="layanan-docs">
+                        <div class="doc-stack">
+                            <div class="doc-item"></div>
+                            <div class="doc-item"></div>
+                            <div class="doc-item"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-text">
+                <a href="layanan.html" class="link-button">JENIS LAYANAN</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    
+    <!-- PWA Installation Script -->
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        const installButton = document.createElement('button');
+        installButton.innerHTML = '📱 Install Aplikasi';
+        installButton.className = 'install-app-btn';
+        installButton.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+            z-index: 1000;
+            display: none;
+        `;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installButton.style.display = 'block';
+            document.body.appendChild(installButton);
+        });
+
+        installButton.addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    } else {
+                        console.log('User dismissed the install prompt');
+                    }
+                    deferredPrompt = null;
+                    installButton.style.display = 'none';
+                });
+            }
+        });
+
+        // Hide install button after installation
+        window.addEventListener('appinstalled', () => {
+            installButton.style.display = 'none';
+            deferredPrompt = null;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jenis Layanan - Kecamatan Ngluyu</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Jenis Layanan Kecamatan Ngluyu - 13 Layanan Tersedia">
+    <meta name="theme-color" content="#11998e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Kecamatan Ngluyu">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .layanan-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .layanan-header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .layanan-title {
+            color: #333;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .layanan-subtitle {
+            color: #666;
+            font-size: 18px;
+        }
+        
+        .layanan-table {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .table-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+        }
+        
+        .table-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        .layanan-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .layanan-table th,
+        .layanan-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .layanan-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .layanan-table td {
+            font-size: 15px;
+            color: #555;
+        }
+        
+        .layanan-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .service-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .service-name {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .service-description {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .layanan-container {
+                padding: 15px;
+            }
+            
+            .layanan-title {
+                font-size: 24px;
+            }
+            
+            .layanan-table th,
+            .layanan-table td {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .table-container {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layanan-container">
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Kembali ke Beranda
+        </a>
+        
+        <div class="layanan-header">
+            <h1 class="layanan-title">13 Jenis Layanan</h1>
+            <p class="layanan-subtitle">Kecamatan Ngluyu - Pelayanan Masyarakat</p>
+        </div>
+        
+        <div class="layanan-table">
+            <div class="table-header">
+                <h2><i class="fas fa-list"></i> Daftar Layanan Tersedia</h2>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">No</th>
+                            <th>Jenis Layanan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="service-number">1</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Form Surat Pernyataan</div>
+                                <div class="service-description">Surat pernyataan untuk berbagai keperluan administrasi</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-number">2</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Surat Keterangan Beda Nama</div>
+                                <div class="service-description">Surat keterangan perbedaan nama dalam dokumen</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-number">3</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Surat Keterangan Belum Menikah</div>
+                                <div class="service-description">Surat keterangan status belum menikah</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-number">4</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Surat Keterangan Domisili</div>
+                                <div class="service-description">Surat keterangan tempat tinggal</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-number">5</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Surat Keterangan Domisili Usaha</div>
+                                <div class="service-description">Surat keterangan tempat usaha</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-number">6</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Surat Keterangan Kelahiran</div>
+                                <div class="service-description">Surat keterangan kelahiran anak</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-number">7</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Surat Keterangan Kematian</div>
+                                <div class="service-description">Surat keterangan kematian</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-number">8</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Surat Keterangan Perwalian</div>
+                                <div class="service-description">Surat keterangan perwalian anak</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-number">9</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Surat Keterangan Tidak Mampu</div>
+                                <div class="service-description">Surat keterangan ekonomi tidak mampu</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-number">10</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Surat Keterangan Umum</div>
+                                <div class="service-description">Surat keterangan untuk keperluan umum</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-number">11</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Surat Keterangan Usaha</div>
+                                <div class="service-description">Surat keterangan usaha/perdagangan</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-number">12</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Surat Pengantar Nikah N 1</div>
+                                <div class="service-description">Surat pengantar untuk pernikahan</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-number">13</div>
+                            </td>
+                            <td>
+                                <div class="service-name">Surat Pengantar Pengajuan Izin Keramaian</div>
+                                <div class="service-description">Surat pengantar izin acara keramaian</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; color: #666; font-size: 14px;">
+            <p>Total: 13 Layanan Tersedia</p>
+            <p>Untuk informasi lebih lanjut, silakan hubungi kantor Kecamatan Ngluyu</p>
+        </div>
+    </div>
+</body>
+</html>

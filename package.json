@@ -1,0 +1,53 @@
+{
+  "name": "kecamatan-ngluyu-pwa",
+  "version": "1.0.0",
+  "description": "Aplikasi Layanan Kecamatan Ngluyu - Progressive Web App",
+  "main": "index.html",
+  "scripts": {
+    "start": "php -S localhost:8000",
+    "build": "echo 'Build completed'",
+    "test": "echo 'Testing PWA functionality'",
+    "lighthouse": "lighthouse http://localhost:8000 --output html --output-path ./lighthouse-report.html",
+    "pwa-audit": "lighthouse http://localhost:8000 --only-categories=pwa --output html --output-path ./pwa-audit.html"
+  },
+  "keywords": [
+    "pwa",
+    "kecamatan",
+    "layanan",
+    "indonesia",
+    "government",
+    "web-app"
+  ],
+  "author": "Kecamatan Ngluyu",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kecamatan-ngluyu/pwa-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kecamatan-ngluyu/pwa-app/issues"
+  },
+  "homepage": "https://kecamatan-ngluyu.com",
+  "devDependencies": {
+    "lighthouse": "^11.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "pwa": {
+    "name": "Kecamatan Ngluyu",
+    "short_name": "Kecamatan Ngluyu",
+    "description": "Aplikasi Layanan Kecamatan Ngluyu - Linktree Digital",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#667eea",
+    "theme_color": "#667eea",
+    "orientation": "portrait-primary"
+  }
+}

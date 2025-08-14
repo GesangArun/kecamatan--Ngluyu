@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Akun - Kecamatan Ngluyu</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #a8edea;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .back-btn {
+            background: #666;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: background 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: #555;
+        }
+        
+        .password-toggle {
+            position: relative;
+        }
+        
+        .password-toggle i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .terms-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .terms-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .terms-checkbox label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .terms-checkbox a {
+            color: #a8edea;
+            text-decoration: none;
+        }
+        
+        .terms-checkbox a:hover {
+            text-decoration: underline;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e1e5e9;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e1e5e9;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+        
+        .step.completed {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        .step-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .step-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #a8edea;
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .step-btn:hover {
+            background: #a8edea;
+        }
+        
+        .step-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .step-btn.primary {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-color: transparent;
+        }
+        
+        .step-btn.primary:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+        
+        <h1 class="form-title">
+            <i class="fas fa-user-plus"></i> Daftar Akun Baru
+        </h1>
+        
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step active" id="step1">1</div>
+            <div class="step" id="step2">2</div>
+            <div class="step" id="step3">3</div>
+        </div>
+        
+        <form id="registrationForm" action="data/registration_data.php" method="POST" enctype="multipart/form-data">
+            <!-- Step 1: Personal Information -->
+            <div class="form-step active" id="step1Content">
+                <h3 style="margin-bottom: 20px; color: #333;">Informasi Pribadi</h3>
+                
+                <div class="form-group">
+                    <label for="nama_lengkap" class="form-label">Nama Lengkap *</label>
+                    <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-input" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tempat_lahir" class="form-label">Tempat Lahir *</label>
+                        <input type="text" id="tempat_lahir" name="tempat_lahir" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tanggal_lahir" class="form-label">Tanggal Lahir *</label>
+                        <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="form-input" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jenis_kelamin" class="form-label">Jenis Kelamin *</label>
+                    <select id="jenis_kelamin" name="jenis_kelamin" class="form-select" required>
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="L">Laki-laki</option>
+                        <option value="P">Perempuan</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nik" class="form-label">NIK *</label>
+                    <input type="text" id="nik" name="nik" class="form-input" maxlength="16" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="alamat" class="form-label">Alamat Lengkap *</label>
+                    <textarea id="alamat" name="alamat" class="form-textarea" required></textarea>
+                </div>
+                
+                <div class="step-buttons">
+                    <button type="button" class="step-btn" onclick="nextStep()">Selanjutnya</button>
+                </div>
+            </div>
+            
+            <!-- Step 2: Contact & Account -->
+            <div class="form-step" id="step2Content">
+                <h3 style="margin-bottom: 20px; color: #333;">Kontak & Akun</h3>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email *</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telepon" class="form-label">Nomor Telepon *</label>
+                    <input type="tel" id="telepon" name="telepon" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username" class="form-label">Username *</label>
+                    <input type="text" id="username" name="username" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Password *</label>
+                    <div class="password-toggle">
+                        <input type="password" id="password" name="password" class="form-input" required>
+                        <i class="fas fa-eye" onclick="togglePassword('password')"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="konfirmasi_password" class="form-label">Konfirmasi Password *</label>
+                    <div class="password-toggle">
+                        <input type="password" id="konfirmasi_password" name="konfirmasi_password" class="form-input" required>
+                        <i class="fas fa-eye" onclick="togglePassword('konfirmasi_password')"></i>
+                    </div>
+                </div>
+                
+                <div class="step-buttons">
+                    <button type="button" class="step-btn" onclick="prevStep()">Sebelumnya</button>
+                    <button type="button" class="step-btn" onclick="nextStep()">Selanjutnya</button>
+                </div>
+            </div>
+            
+            <!-- Step 3: Additional Info & Submit -->
+            <div class="form-step" id="step3Content">
+                <h3 style="margin-bottom: 20px; color: #333;">Informasi Tambahan</h3>
+                
+                <div class="form-group">
+                    <label for="pekerjaan" class="form-label">Pekerjaan</label>
+                    <input type="text" id="pekerjaan" name="pekerjaan" class="form-input" placeholder="Opsional">
+                </div>
+                
+                <div class="form-group">
+                    <label for="pendidikan" class="form-label">Pendidikan Terakhir</label>
+                    <select id="pendidikan" name="pendidikan" class="form-select">
+                        <option value="">Pilih Pendidikan</option>
+                        <option value="SD">SD</option>
+                        <option value="SMP">SMP</option>
+                        <option value="SMA">SMA</option>
+                        <option value="D3">D3</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="S3">S3</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="foto_ktp" class="form-label">Foto KTP *</label>
+                    <input type="file" id="foto_ktp" name="foto_ktp" class="form-input" accept="image/*" required>
+                    <small style="color: #666; font-size: 12px;">Format: JPG, JPEG, PNG (Max: 2MB)</small>
+                </div>
+                
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">
+                        Saya setuju dengan <a href="#" onclick="showTerms()">Syarat dan Ketentuan</a> yang berlaku
+                    </label>
+                </div>
+                
+                <div class="step-buttons">
+                    <button type="button" class="step-btn" onclick="prevStep()">Sebelumnya</button>
+                    <button type="submit" class="step-btn primary">Daftar Akun</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 3;
+        
+        // Update progress bar
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+        
+        // Update step indicators
+        function updateStepIndicators() {
+            for (let i = 1; i <= totalSteps; i++) {
+                const step = document.getElementById('step' + i);
+                if (i < currentStep) {
+                    step.classList.remove('active');
+                    step.classList.add('completed');
+                } else if (i === currentStep) {
+                    step.classList.remove('completed');
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active', 'completed');
+                }
+            }
+        }
+        
+        // Show step content
+        function showStep(stepNumber) {
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById('step' + stepNumber + 'Content').classList.add('active');
+        }
+        
+        // Next step
+        function nextStep() {
+            if (validateCurrentStep()) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    showStep(currentStep);
+                    updateProgress();
+                    updateStepIndicators();
+                }
+            }
+        }
+        
+        // Previous step
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+                updateProgress();
+                updateStepIndicators();
+            }
+        }
+        
+        // Validate current step
+        function validateCurrentStep() {
+            const currentStepContent = document.getElementById('step' + currentStep + 'Content');
+            const requiredFields = currentStepContent.querySelectorAll('[required]');
+            
+            for (let field of requiredFields) {
+                if (!field.value.trim()) {
+                    alert('Mohon lengkapi semua field yang wajib diisi!');
+                    field.focus();
+                    return false;
+                }
+            }
+            
+            // Additional validation for specific steps
+            if (currentStep === 1) {
+                const nik = document.getElementById('nik').value;
+                if (nik.length !== 16 || isNaN(nik)) {
+                    alert('NIK harus 16 digit angka!');
+                    return false;
+                }
+            }
+            
+            if (currentStep === 2) {
+                const password = document.getElementById('password').value;
+                const konfirmasi = document.getElementById('konfirmasi_password').value;
+                
+                if (password.length < 8) {
+                    alert('Password minimal 8 karakter!');
+                    return false;
+                }
+                
+                if (password !== konfirmasi) {
+                    alert('Konfirmasi password tidak cocok!');
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+        
+        // Toggle password visibility
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const icon = field.nextElementSibling;
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+        
+        // Show terms
+        function showTerms() {
+            alert('Syarat dan Ketentuan akan ditampilkan di sini.');
+        }
+        
+        // Form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateCurrentStep()) {
+                // Simulate successful registration
+                alert('Pendaftaran berhasil! Akun Anda akan segera diaktifkan oleh admin.');
+                this.submit();
+            }
+        });
+        
+        // Initialize
+        updateProgress();
+        updateStepIndicators();
+    </script>
+</body>
+</html>

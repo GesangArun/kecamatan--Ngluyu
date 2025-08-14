@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan - Kecamatan Ngluyu</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .back-btn {
+            background: #666;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: background 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+        
+        <h1 class="form-title">
+            <i class="fas fa-file-alt"></i> Form Laporan
+        </h1>
+        
+        <form id="laporanForm" action="data/laporan_data.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nama" class="form-label">Nama Lengkap *</label>
+                <input type="text" id="nama" name="nama" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="nik" class="form-label">NIK *</label>
+                <input type="text" id="nik" name="nik" class="form-input" maxlength="16" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="alamat" class="form-label">Alamat Lengkap *</label>
+                <textarea id="alamat" name="alamat" class="form-textarea" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="telepon" class="form-label">Nomor Telepon *</label>
+                <input type="tel" id="telepon" name="telepon" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="jenis_laporan" class="form-label">Jenis Laporan *</label>
+                <select id="jenis_laporan" name="jenis_laporan" class="form-select" required>
+                    <option value="">Pilih Jenis Laporan</option>
+                    <option value="administrasi">Administrasi</option>
+                    <option value="pelayanan">Pelayanan</option>
+                    <option value="infrastruktur">Infrastruktur</option>
+                    <option value="keamanan">Keamanan</option>
+                    <option value="lainnya">Lainnya</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="judul_laporan" class="form-label">Judul Laporan *</label>
+                <input type="text" id="judul_laporan" name="judul_laporan" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="isi_laporan" class="form-label">Isi Laporan *</label>
+                <textarea id="isi_laporan" name="isi_laporan" class="form-textarea" placeholder="Jelaskan detail laporan Anda..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="lampiran" class="form-label">Lampiran (Opsional)</label>
+                <input type="file" id="lampiran" name="lampiran" class="form-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                <small style="color: #666; font-size: 12px;">Format: PDF, DOC, DOCX, JPG, PNG (Max: 5MB)</small>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Kirim Laporan
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('laporanForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validasi NIK
+            const nik = document.getElementById('nik').value;
+            if (nik.length !== 16 || isNaN(nik)) {
+                alert('NIK harus 16 digit angka!');
+                return;
+            }
+            
+            // Validasi nomor telepon
+            const telepon = document.getElementById('telepon').value;
+            if (!/^[0-9+\-\s()]+$/.test(telepon)) {
+                alert('Nomor telepon tidak valid!');
+                return;
+            }
+            
+            // Jika validasi berhasil, kirim form
+            alert('Laporan berhasil dikirim! Terima kasih atas laporan Anda.');
+            this.submit();
+        });
+    </script>
+</body>
+</html>
